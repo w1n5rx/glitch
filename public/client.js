@@ -2114,38 +2114,75 @@ var Apps = function (_React$Component) {
   }
 
   _createClass(Apps, [{
-    key: 'onSelect',
+    key: "onSelect",
     value: function onSelect() {
-      this.setState({ active: !this.state.active });
+      this.setState({
+        active: !this.state.active
+      });
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { className: 'apps-list', onClick: this.onSelect },
+        "div",
+        null,
         _react2.default.createElement(
-          'h1',
-          null,
-          this.state.active ? this.props.header.concat(' (Selected)') : this.props.header
+          "div",
+          { className: "apps-list",
+            onClick: this.onSelect },
+          _react2.default.createElement(
+            "h1",
+            null,
+            " ",
+            this.state.active ? this.props.header.concat(" (Selected)") : this.props.header,
+            " "
+          ),
+          _react2.default.createElement(
+            "ul",
+            null,
+            _react2.default.createElement(
+              "li",
+              null,
+              " WhatsApp: messages from all around the world "
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              " Instagram: images from all around the world "
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              " Youtube: videos from all around the world "
+            )
+          )
         ),
         _react2.default.createElement(
-          'ul',
-          null,
+          "div",
+          { className: "apps-list" },
           _react2.default.createElement(
-            'li',
+            "h1",
             null,
-            'WhatsApp: messages from all around the world'
+            "Thing List for Companies "
           ),
           _react2.default.createElement(
-            'li',
+            "ul",
             null,
-            'Instagram: images from all around the world'
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'Youtube: videos from all around the world'
+            _react2.default.createElement(
+              "li",
+              null,
+              " Microsoft: opening windows to the world "
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              " Apple: opening style for the world "
+            ),
+            _react2.default.createElement(
+              "li",
+              null,
+              " Google: opening a world of ones and zeros "
+            )
           )
         )
       );
