@@ -2,6 +2,9 @@ import React from "react";
 import {
   render
 } from "react-dom";
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import Header from './Header';
 
 const APP = "app";
 class Apps extends React.Component {
