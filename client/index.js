@@ -9,7 +9,7 @@ import './styles.css';
 function rerender() {
   var route = window.location.hash.substr(1);
   render( <div>
-    <Apps header = "Thing List for Apps" />
+    <Apps apps = "Thing List for Apps" companies = "Thing List for Companies" />
     </div>, document.getElementById('application'));
 }
 

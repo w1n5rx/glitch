@@ -2098,6 +2098,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var APP = "app";
+var COMPANY = "company";
+
 var Apps = function (_React$Component) {
   _inherits(Apps, _React$Component);
 
@@ -2107,9 +2110,16 @@ var Apps = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Apps.__proto__ || Object.getPrototypeOf(Apps)).call(this, props));
 
     _this.state = {
-      active: false
+      active: false,
+      sort: false,
+      appSort: false,
+      companySort: false,
+      appsList: ['WhatsApp: messages from all around the world', 'Instagram: images from all around the world', 'Youtube: videos from all around the world'],
+      companyList: ['Microsoft: opening windows to the world', 'Apple: opening style for the world', ' Google: opening a world of ones and zeros']
     };
+
     _this.onSelect = _this.onSelect.bind(_this);
+    _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
 
@@ -2121,40 +2131,60 @@ var Apps = function (_React$Component) {
       });
     }
   }, {
+    key: "onClick",
+    value: function onClick(event, type) {
+      console.log(event);
+      console.log(type);
+
+      type === APP ? this.setState({
+        appSort: !this.state.appSort
+      }) && !this.state.appSort ? this.setState({
+        appsList: this.state.appsList.sort()
+      }) : this.setState({
+        appsList: this.state.appsList.reverse()
+      }) : this.setState({
+        companySort: !this.state.companySort
+      }) && !this.state.companySort ? this.setState({
+        companyList: this.state.companyList.sort()
+      }) : this.setState({
+        companyList: this.state.companyList.reverse()
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
           "div",
-          { className: "apps-list",
-            onClick: this.onSelect },
+          { className: "apps-list", onClick: this.onSelect },
           _react2.default.createElement(
             "h1",
             null,
             " ",
-            this.state.active ? this.props.header.concat(" (Selected)") : this.props.header,
+            this.state.active ? this.props.apps.concat(" (Selected)") : this.props.apps,
             " "
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick(event) {
+                _this2.onClick(event, 'app');
+              } },
+            "sort"
           ),
           _react2.default.createElement(
             "ul",
             null,
-            _react2.default.createElement(
-              "li",
-              null,
-              " WhatsApp: messages from all around the world "
-            ),
-            _react2.default.createElement(
-              "li",
-              null,
-              " Instagram: images from all around the world "
-            ),
-            _react2.default.createElement(
-              "li",
-              null,
-              " Youtube: videos from all around the world "
-            )
+            this.state.appsList.map(function (item) {
+              return _react2.default.createElement(
+                "li",
+                null,
+                item
+              );
+            })
           )
         ),
         _react2.default.createElement(
@@ -2163,26 +2193,25 @@ var Apps = function (_React$Component) {
           _react2.default.createElement(
             "h1",
             null,
-            "Thing List for Companies "
+            this.props.companies
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: function onClick(event) {
+                _this2.onClick(event);
+              } },
+            "sort"
           ),
           _react2.default.createElement(
             "ul",
             null,
-            _react2.default.createElement(
-              "li",
-              null,
-              " Microsoft: opening windows to the world "
-            ),
-            _react2.default.createElement(
-              "li",
-              null,
-              " Apple: opening style for the world "
-            ),
-            _react2.default.createElement(
-              "li",
-              null,
-              " Google: opening a world of ones and zeros "
-            )
+            this.state.companyList.map(function (item) {
+              return _react2.default.createElement(
+                "li",
+                null,
+                item
+              );
+            })
           )
         )
       );
@@ -2293,7 +2322,7 @@ function rerender() {
   (0, _reactDom.render)(_react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_Apps2.default, { header: 'Thing List for Apps' })
+    _react2.default.createElement(_Apps2.default, { apps: 'Thing List for Apps', companies: 'Thing List for Companies' })
   ), document.getElementById('application'));
 }
 
