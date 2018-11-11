@@ -2099,7 +2099,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var APP = "app";
-var COMPANY = "company";
 
 var Apps = function (_React$Component) {
   _inherits(Apps, _React$Component);
@@ -2111,7 +2110,7 @@ var Apps = function (_React$Component) {
 
     _this.state = {
       active: false,
-      sort: false,
+      activeCompanies: false,
       appSort: false,
       companySort: false,
       appsList: ['WhatsApp: messages from all around the world', 'Instagram: images from all around the world', 'Youtube: videos from all around the world', 'Dropbox: files from all around the world'],
@@ -2121,6 +2120,7 @@ var Apps = function (_React$Component) {
     };
 
     _this.onSelect = _this.onSelect.bind(_this);
+    _this.onSelectCompanies = _this.onSelectCompanies.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
     _this.onClickVisibility = _this.onClickVisibility.bind(_this);
     return _this;
@@ -2130,15 +2130,22 @@ var Apps = function (_React$Component) {
     key: "onSelect",
     value: function onSelect() {
       this.setState({
-        active: !this.state.active
+        active: !this.state.active,
+        activeCompanies: false
+      });
+    }
+  }, {
+    key: "onSelectCompanies",
+    value: function onSelectCompanies() {
+      this.setState({
+        activeCompanies: !this.state.activeCompanies,
+        active: false,
+        clickedItemVisible: false
       });
     }
   }, {
     key: "onClick",
     value: function onClick(event, type) {
-      console.log(event);
-      console.log(type);
-
       type === APP ? this.setState({
         appSort: !this.state.appSort
       }) && !this.state.appSort ? this.setState({
@@ -2158,7 +2165,9 @@ var Apps = function (_React$Component) {
     value: function onClickVisibility(value) {
       this.setState({
         clickedItem: value,
-        clickedItemVisible: true
+        clickedItemVisible: true,
+        active: true,
+        activeCompanies: false
       });
     }
   }, {
@@ -2166,7 +2175,11 @@ var Apps = function (_React$Component) {
     value: function componentWillUnmount() {
       this.setState({
         clickedItem: '',
-        clickedItemVisible: false
+        clickedItemVisible: false,
+        active: false,
+        activeCompanies: false,
+        appSort: false,
+        companySort: false
       });
     }
   }, {
@@ -2215,11 +2228,11 @@ var Apps = function (_React$Component) {
         ),
         _react2.default.createElement(
           "div",
-          { className: "apps-list" },
+          { className: "apps-list", onClick: this.onSelectCompanies },
           _react2.default.createElement(
             "h1",
             null,
-            this.props.companies
+            this.state.activeCompanies ? this.props.companies.concat(" (Selected)") : this.props.companies
           ),
           _react2.default.createElement(
             "button",
