@@ -17,6 +17,12 @@ body {
   border: 1px solid #000000;
   width: 400px;
 }
+.headline{
+  border: 1px solid #000000;
+  width: 450px;
+  white-space: nowrap;
+  white-space: pre;
+}
 a {
   text-decoration: underline;
 }

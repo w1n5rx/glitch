@@ -4,7 +4,6 @@ import {
 } from "react-dom";
 
 const APP = "app";
-const COMPANY = "company"
 class Apps extends React.Component {
   constructor(props) {
     super(props);
@@ -14,12 +13,18 @@ class Apps extends React.Component {
       sort: false,
       appSort:false,
       companySort: false,
-      appsList: ['WhatsApp: messages from all around the world', 'Instagram: images from all around the world', 'Youtube: videos from all around the world'],
-      companyList: ['Microsoft: opening windows to the world', 'Apple: opening style for the world', ' Google: opening a world of ones and zeros']
+      appsList: ['WhatsApp: messages from all around the world',
+        'Instagram: images from all around the world',
+        'Youtube: videos from all around the world',
+        'Dropbox: files from all around the world'],
+      companyList: ['Microsoft: opening windows to the world', 'Apple: opening style for the world', ' Google: opening a world of ones and zeros'],
+      clickedItem: '',
+      clickedItemVisible: false
     };
 
     this.onSelect = this.onSelect.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onClickVisibility = this.onClickVisibility.bind(this);
   }
 
   onSelect() {
@@ -29,9 +34,6 @@ class Apps extends React.Component {
   }
 
   onClick(event, type) {
-    console.log(event);
-    console.log(type);
-
     type === APP ? (
       this.setState({
         appSort: !this.state.appSort
@@ -51,12 +53,26 @@ class Apps extends React.Component {
         companyList: this.state.companyList.reverse()
       })
     )
+  }
 
+  onClickVisibility(value) {
+    this.setState({
+      clickedItem: value,
+      clickedItemVisible: true
+    });
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      clickedItem: '',
+      clickedItemVisible: false
+    });
   }
 
   render() {
     return (
       <div>
+        <h3 className = "headline">{this.state.clickedItemVisible && this.state.clickedItem}</h3>
         <div className = "apps-list" onClick = { this.onSelect } >
           <h1> {
             this.state.active ?
@@ -66,7 +82,7 @@ class Apps extends React.Component {
 
           <ul>
             {this.state.appsList.map( item => (
-              <li>{item}</li>
+              <li onClick={event => { this.onClickVisibility(item) }}>{item}</li>
             ))}
           </ul>
         </div>

@@ -2114,12 +2114,15 @@ var Apps = function (_React$Component) {
       sort: false,
       appSort: false,
       companySort: false,
-      appsList: ['WhatsApp: messages from all around the world', 'Instagram: images from all around the world', 'Youtube: videos from all around the world'],
-      companyList: ['Microsoft: opening windows to the world', 'Apple: opening style for the world', ' Google: opening a world of ones and zeros']
+      appsList: ['WhatsApp: messages from all around the world', 'Instagram: images from all around the world', 'Youtube: videos from all around the world', 'Dropbox: files from all around the world'],
+      companyList: ['Microsoft: opening windows to the world', 'Apple: opening style for the world', ' Google: opening a world of ones and zeros'],
+      clickedItem: '',
+      clickedItemVisible: false
     };
 
     _this.onSelect = _this.onSelect.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
+    _this.onClickVisibility = _this.onClickVisibility.bind(_this);
     return _this;
   }
 
@@ -2151,6 +2154,22 @@ var Apps = function (_React$Component) {
       });
     }
   }, {
+    key: "onClickVisibility",
+    value: function onClickVisibility(value) {
+      this.setState({
+        clickedItem: value,
+        clickedItemVisible: true
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.setState({
+        clickedItem: '',
+        clickedItemVisible: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -2158,6 +2177,11 @@ var Apps = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
+        _react2.default.createElement(
+          "h3",
+          { className: "headline" },
+          this.state.clickedItemVisible && this.state.clickedItem
+        ),
         _react2.default.createElement(
           "div",
           { className: "apps-list", onClick: this.onSelect },
@@ -2181,7 +2205,9 @@ var Apps = function (_React$Component) {
             this.state.appsList.map(function (item) {
               return _react2.default.createElement(
                 "li",
-                null,
+                { onClick: function onClick(event) {
+                    _this2.onClickVisibility(item);
+                  } },
                 item
               );
             })
